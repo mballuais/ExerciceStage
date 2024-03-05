@@ -3,17 +3,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const weatherInfo = document.getElementById("weather-info");
 
   form.addEventListener("submit", function (event) {
-    event.preventDefault(); // Empêche le rechargement de la page lors de la soumission du formulaire
+    event.preventDefault();
 
     const cityInput = document.getElementById("Ville");
-    const cityName = cityInput.value.trim(); // Récupère le nom de la ville et supprime les espaces vides au début et à la fin
+    const cityName = cityInput.value.trim();
 
     if (cityName === "") {
-      alert("Veuillez saisir le nom d'une ville."); // Affiche une alerte si aucun nom de ville n'est saisi
+      alert("Veuillez saisir le nom d'une ville."); 
       return;
     }
 
-    // URL de l'API météo (remplacez 'YOUR_API_KEY' par votre clé API)
     const apiKey = "ac74dab4c2ae2f6d02ed66de07cc0c28";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=fr`;
 
@@ -27,13 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then((data) => {
-        // Récupère les informations météorologiques
         const temperature = data.main.temp;
         const feelsLike = data.main.feels_like;
         const humidity = data.main.humidity;
         const windSpeed = data.wind.speed;
 
-        // Affiche les informations météorologiques dans l'interface utilisateur
         weatherInfo.innerHTML = `
                     <h2>Conditions météorologiques à ${cityName}</h2>
                     <p>Température : ${temperature}°C</p>
@@ -43,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
       })
       .catch((error) => {
-        // Gère les erreurs d'API
         weatherInfo.innerHTML = `<p>${error.message}</p>`;
       });
   });
